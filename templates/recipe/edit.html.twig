@@ -8,10 +8,9 @@
      <div class="row">
         <div class="col-6 mx-auto" >
             <h1 class="display-4 my-5 text-center">Title </h1>
-            {{form(form)}}            
-            
-            <button type="submit" class="btn btn-primary w-100" formnovalidate> send </button>
-                    
+            {{form_start(form)}}            
+                {{form_widget(form)}}            
+                <button type="submit" class="btn btn-primary w-100" > save chnages </button> 
             {{form_end(form)}}
         </div>
    </div>
