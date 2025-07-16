@@ -25,6 +25,7 @@ final class RecipeController extends AbstractController
         ]);
     }
 
+
     // pages des detailles de recette 
     #[Route('/recipe/{slug}-{id}', name: 'recipe.show', requirements: ['slug' => '.+', 'id' => '\d+'])]    
     public function recipe(Request $request, Recipe $recipe): Response
@@ -33,6 +34,27 @@ final class RecipeController extends AbstractController
             'recipe' => $recipe,
         ]);
     }
+
+
+    //fonction pour cree une recette 
+    #[Route('/recipe/create',name:'recipes.create')]
+    public function create( Request $request,EntityManagerInterface $em,):Response{// on n'avait pas ajouter recipe au parametre de cette fonction car on vas cree et persister la recette or dans la fct precedante on a deja la recette et on veulent la modifier(l'utilisation de l'entite au parametre dans la fonction precedante etait une autre methode explique deja )
+        $recipe= new Recipe();
+        $form = $this->createForm(RecipeType::class,$recipe);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $recipe->setCreatedat(new DateTimeImmutable());
+            $recipe->setUpdatedAt(new DateTimeImmutable());
+            $em->persist($recipe);
+            $em->flush();
+            $this->addFlash('success','la recette a bien été crée');
+            return $this->redirectToRoute('recipe.index');
+        }
+        return $this->render('recipe/create.html.twig',[//ici on a passer seulement le formulaire au view car on n'affichera rien 
+            'form'=>$form
+        ]);
+    }
+
 
     //fonction pour edit recette 
     #[Route('/recipe/{id}/edit', name: 'recipe.edit')]
@@ -53,24 +75,8 @@ final class RecipeController extends AbstractController
             'form'   => $form,
         ]);
     }
-    //fonction pour cree une recette 
-    #[Route('/recipe/create',name:'recipes.create')]
-    public function create( Request $request,EntityManagerInterface $em,):Response{// on n'avait pas ajouter recipe au parametre de cette fonction car on vas cree et persister la recette or dans la fct precedante on a deja la recette et on veulent la modifier(l'utilisation de l'entite au parametre dans la fonction precedante etait une autre methode explique deja )
-        $recipe= new Recipe();
-        $form = $this->createForm(RecipeType::class,$recipe);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()){
-            $recipe->setCreatedat(new DateTimeImmutable());
-            $recipe->setUpdatedAt(new DateTimeImmutable());
-            $em->persist($recipe);
-            $em->flush();
-            $this->addFlash('success','la recette a bien été crée');
-            return $this->redirectToRoute('recipe.index');
-        }
-        return $this->render('recipe/create.html.twig',[//ici on a passer seulement le formulaire au view car on n'affichera rien 
-            'form'=>$form
-        ]);
-    }
+    
+    
     //fonction pour effacer une recette 
     #[Route('recipe/{id}/delete',name:'recipe.delete')]
     public function delete(EntityManagerInterface $em,Recipe $recipe){
