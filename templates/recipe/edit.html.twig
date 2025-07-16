@@ -11,8 +11,10 @@
             {{form_start(form)}}            
                 {{form_widget(form)}}            
                 <button type="submit" class="btn btn-primary w-100" > save chnages </button> 
-            {{form_end(form)}}
+            {{form_end(form)}} <br>
+            <a href="{{ path('recipe.index') }}" class="btn btn-secondary w-100 ">← Retour à la liste</a>
         </div>
+
    </div>
 {% endblock %}
 
