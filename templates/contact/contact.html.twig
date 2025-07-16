@@ -8,13 +8,13 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
-
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>/var/www/html/recipe_project/src/Controller/ContactController.php</code></li>
-        <li>Your template at <code>/var/www/html/recipe_project/templates/contact/index.html.twig</code></li>
-    </ul>
-</div>
+    <h1 class="text-center">Contactez-Nous</h1>
+    {{form_start(form)}}
+    <div class="row">
+        <div class="col-4">{{form_row(form.name)}}</div>
+        <div class="col-4">{{form_row(form.email)}}</div>
+        <div class="col-4">{{form_row(form.service)}}</div>
+    </div>
+    {{form_end(form)}}
+    <button type="submit" class="btn btn-primary w-100">Envoyer</button>
 {% endblock %}
