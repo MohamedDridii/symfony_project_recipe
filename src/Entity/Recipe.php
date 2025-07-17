@@ -17,7 +17,7 @@ class Recipe
     #[ORM\Column(length: 255)]
     private ?string $title = null;
 
-    #[ORM\Column(length: 255, nullable: true)]
+    #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -35,6 +35,7 @@ class Recipe
     #[ORM\ManyToOne(inversedBy: 'recipes')]
     private ?Category $category = null;
 
+   
     public function getId(): ?int
     {
         return $this->id;
@@ -57,7 +58,7 @@ class Recipe
         return $this->slug;
     }
 
-    public function setSlug(?string $slug): static
+    public function setSlug(string $slug): static
     {
         $this->slug = $slug;
 
@@ -123,4 +124,6 @@ class Recipe
 
         return $this;
     }
+
+   
 }

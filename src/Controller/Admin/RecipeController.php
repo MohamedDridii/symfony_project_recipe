@@ -13,15 +13,17 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('admin/recettes',name:'admin.recettes')]
 final class RecipeController extends AbstractController
 {
     //page des recette 
     #[Route('', name: '.index')]
+    #[IsGranted('ROLE_USER')]
     public function index(RecipeRepository $recipe): Response
     {
-        
+       // $this->denyAccessUnlessGranted('ROLE_USER');//prevent access to users not having the role user (you must log in first with a valid data to be redirected to this page )
         $recipes=$recipe->findAll();
 
         return $this->render('admin/recipe/recipe.html.twig', [
