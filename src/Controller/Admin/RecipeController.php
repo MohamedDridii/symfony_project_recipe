@@ -2,8 +2,10 @@
 
 namespace App\Controller\Admin;
 
+use App\Entity\Category;
 use App\Entity\Recipe;
 use App\Form\RecipeType;
+use App\Repository\RecipeRepository;
 use DateTime;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityManagerInterface;
@@ -17,9 +19,10 @@ final class RecipeController extends AbstractController
 {
     //page des recette 
     #[Route('', name: '.index')]
-    public function index(EntityManagerInterface $em): Response
+    public function index(RecipeRepository $recipe): Response
     {
-        $recipes = $em->getRepository(Recipe::class)->findAll();
+        
+        $recipes=$recipe->findAll();
 
         return $this->render('admin/recipe/recipe.html.twig', [
             'recipes' => $recipes,

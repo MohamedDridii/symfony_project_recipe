@@ -34,7 +34,7 @@ class Category
     /**
      * @var Collection<int, Recipe>
      */
-    #[ORM\OneToMany(targetEntity: Recipe::class, mappedBy: 'category')]
+    #[ORM\OneToMany(targetEntity: Recipe::class, mappedBy: 'category',cascade:['remove'])]//supprime tous recettes lie au categorie 
     private Collection $recipes;
 
     public function __construct()

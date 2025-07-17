@@ -5,39 +5,27 @@ namespace App\DataFixtures;
 use App\Entity\Category as CategoryEntity;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
-use Doctrine\Bundle\FixturesBundle\FixtureGroupInterface;
-use Doctrine\Bundle\FixturesBundle\Attribute\AsFixture;
 
-class Category extends Fixture
+
+class Category extends Fixture 
 {
-
     public function load(ObjectManager $manager): void
     {
         $categories = [
             [
-                'name' => 'Italien',
-                'slug' => 'italien',
-                'content' => 'Recettes typiques italiennes comme les pizzas, pâtes, risottos...',
+                'name' => 'Entrée',
+                'slug' => 'entree',
+                'content' => 'Catégorie pour les entrées froides ou chaudes, comme les salades, soupes, bricks, etc.',
             ],
             [
-                'name' => 'Tunisien',
-                'slug' => 'tunisien',
-                'content' => 'Plats traditionnels tunisiens à base de semoule, harissa, légumes, etc.',
+                'name' => 'Plat principal',
+                'slug' => 'plat-principal',
+                'content' => 'Catégorie pour les plats principaux, comme les tajines, couscous, gratins, etc.',
             ],
             [
-                'name' => 'Espagnol',
-                'slug' => 'espagnol',
-                'content' => 'Recettes espagnoles populaires comme la paella, tapas, tortilla.',
-            ],
-            [
-                'name' => 'Marocain',
-                'slug' => 'marocain',
-                'content' => 'Cuisine marocaine riche en épices : tajines, couscous, pastillas...',
-            ],
-            [
-                'name' => 'Français',
-                'slug' => 'francais',
-                'content' => 'Gastronomie française : quiches, gratins, croissants et plus.',
+                'name' => 'Dessert',
+                'slug' => 'dessert',
+                'content' => 'Catégorie pour les desserts : pâtisseries, glaces, fruits, etc.',
             ],
         ];
 
@@ -54,4 +42,5 @@ class Category extends Fixture
 
         $manager->flush();
     }
+
 }

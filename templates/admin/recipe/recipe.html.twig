@@ -17,6 +17,7 @@
         <thead>
             <tr>
                 <th>Title</th>
+                <th>Category</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -27,6 +28,9 @@
                     <a href="{{ path('admin.recettes.show', {slug: recipe.slug, id: recipe.id}) }}">
                         {{ recipe.title }}
                     </a>
+                </td>
+                <td>
+                    {{recipe.category.name|default('')}}
                 </td>
                 <td>
                     <a href="{{ path('admin.recettes.edit', {id: recipe.id}) }}" class="btn btn-warning">Modifier</a><!-- la partie id sert a specifier l'id de recette pour path car elle genere un url vers une route nomme et dans le route dans le controlleur le champ id est obligatoire -->
