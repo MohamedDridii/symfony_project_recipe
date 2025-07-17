@@ -1,0 +1,20 @@
+{% extends 'admin/base.html.twig' %}
+{% block title %}Edit{% endblock %}
+{% block body %}
+    <style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    </style>
+     <div class="row">
+        <div class="col-6 mx-auto" >
+            <h1 class="display-4 my-5 text-center">Modify Category  </h1>
+            {{form_start(form)}}            
+                {{form_widget(form)}}            
+                <button type="submit" class="btn btn-primary w-100" > save chnages </button> 
+            {{form_end(form)}} <br>
+            <a href="{{ path('admin.category.index') }}" class="btn btn-secondary w-100 ">← ← Return to gategory list</a>
+        </div>
+
+   </div>
+{% endblock %}
+

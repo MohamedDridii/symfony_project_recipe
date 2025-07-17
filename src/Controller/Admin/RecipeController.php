@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\Entity\Recipe;
 use App\Form\RecipeType;
@@ -12,32 +12,33 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
+#[Route('admin/recettes',name:'admin.recettes')]
 final class RecipeController extends AbstractController
 {
     //page des recette 
-    #[Route('/recipe', name: 'recipe.index')]
+    #[Route('', name: '.index')]
     public function index(EntityManagerInterface $em): Response
     {
         $recipes = $em->getRepository(Recipe::class)->findAll();
 
-        return $this->render('recipe/recipe.html.twig', [
+        return $this->render('admin/recipe/recipe.html.twig', [
             'recipes' => $recipes,
         ]);
     }
 
 
     // pages des detailles de recette 
-    #[Route('/recipe/{slug}-{id}', name: 'recipe.show', requirements: ['slug' => '.+', 'id' => '\d+'])]    
+    #[Route('/{slug}-{id}', name: '.show', requirements: ['slug' => '.+', 'id' => '\d+'])]    
     public function recipe(Request $request, Recipe $recipe): Response
     {
-        return $this->render('recipe/show.html.twig', [
+        return $this->render('admin/recipe/show.html.twig', [
             'recipe' => $recipe,
         ]);
     }
 
 
     //fonction pour cree une recette 
-    #[Route('/recipe/create',name:'recipes.create')]
+    #[Route('/create',name:'.create')]
     public function create( Request $request,EntityManagerInterface $em,):Response{// on n'avait pas ajouter recipe au parametre de cette fonction car on vas cree et persister la recette or dans la fct precedante on a deja la recette et on veulent la modifier(l'utilisation de l'entite au parametre dans la fonction precedante etait une autre methode explique deja )
         $recipe= new Recipe();
         $form = $this->createForm(RecipeType::class,$recipe);
@@ -48,16 +49,16 @@ final class RecipeController extends AbstractController
             $em->persist($recipe);
             $em->flush();
             $this->addFlash('success','la recette a bien été crée');
-            return $this->redirectToRoute('recipe.index');
+            return $this->redirectToRoute('admin.recettes.index');
         }
-        return $this->render('recipe/create.html.twig',[//ici on a passer seulement le formulaire au view car on n'affichera rien 
+        return $this->render('admin/recipe/create.html.twig',[//ici on a passer seulement le formulaire au view car on n'affichera rien 
             'form'=>$form
         ]);
     }
 
 
     //fonction pour edit recette 
-    #[Route('/recipe/{id}/edit', name: 'recipe.edit')]
+    #[Route('/{id}/edit', name: '.edit')]
     public function edit(Recipe $recipe,Request $request,EntityManagerInterface $em ): Response// le framework symfony connait que dans le route tu cherche sur l'id donc elle select l'entite avec l'id passer au parametre(cette methode n'est valable qu'avec le champ id)
     {
         $form=$this->createForm(RecipeType::class,$recipe);//j'ai cree un formulaire avec les donner de l'entite recipe passer en parametre dans la fonction
@@ -67,10 +68,10 @@ final class RecipeController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
             $em->flush();//maintenant on va modifier lesdonner soummit par le formulfaire dans la base de donner 
             $this->addFlash('message','la recette a bien été modifiée ');
-            return $this->redirectToRoute('recipe.index');//redirection vers la page avec le nom de route app_route
+            return $this->redirectToRoute('admin.recettes.index');//redirection vers la page avec le nom de route app_route
         }
         
-        return $this->render('recipe/edit.html.twig', [
+        return $this->render('admin/recipe/edit.html.twig', [
             'recipe' => $recipe,
             'form'   => $form,
         ]);
@@ -78,12 +79,12 @@ final class RecipeController extends AbstractController
     
     
     //fonction pour effacer une recette 
-    #[Route('recipe/{id}/delete',name:'recipe.delete')]
+    #[Route('/{id}/delete',name:'.delete')]
     public function delete(EntityManagerInterface $em,Recipe $recipe){
         $em->remove($recipe);
         $em->flush();
         $this->addFlash('success','la recette a bien ete supprimée');
-        return $this->redirectToRoute('recipe.index');
+        return $this->redirectToRoute('admin.recettes.index');
     }
 
 

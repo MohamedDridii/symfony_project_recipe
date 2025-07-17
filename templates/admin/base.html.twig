@@ -14,7 +14,8 @@
     <body>
         <nav class="navbar bg-primary navbar-expand-lg" data-bs-theme="dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{ path('recipe.index')}}">MonSite</a>
+                <a class="navbar-brand" href="{{ path('admin.recettes.index')}}">My recipies</a>
+                <a class="navbar-brand" href="{{ path('admin.category.index')}}">My Categories</a>
                 <div class="collapse navbar-collapse">
                     <ul class="navbar-nav">
                         
@@ -23,7 +24,7 @@
             </div>
         </nav>
 <div class="container my-4">
-    {% include "partials/flash.html.twig" %}
+    {% include "admin/partials/flash.html.twig" %}
     {% block body %}{% endblock %}
     </div>
     </body>

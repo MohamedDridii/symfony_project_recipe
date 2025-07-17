@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'admin/base.html.twig' %}
 {% block title %}Edit{% endblock %}
 {% block body %}
     <style>
@@ -12,7 +12,7 @@
                 {{form_widget(form)}}            
                 <button type="submit" class="btn btn-primary w-100" > save chnages </button> 
             {{form_end(form)}} <br>
-            <a href="{{ path('recipe.index') }}" class="btn btn-secondary w-100 ">← Retour à la liste</a>
+            <a href="{{ path('admin.recettes.index') }}" class="btn btn-secondary w-100 ">← Retour à la liste</a>
         </div>
 
    </div>
