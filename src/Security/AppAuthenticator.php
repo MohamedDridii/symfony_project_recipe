@@ -52,13 +52,13 @@ class AppAuthenticator extends AbstractLoginFormAuthenticator
     //hedhi execute apres log in w taamel feha l config mtaa l page li theb l utilisateur yemchilha par defaut 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $firewallName): ?Response
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
+        /*if ($targetPath = $this->getTargetPath($request->getSession(), $firewallName)) {
             return new RedirectResponse($targetPath);
-        }
+        }*/
 
         // For example:
         // return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        return new RedirectResponse($this->urlGenerator->generate('admin.recettes.index'));
+        return new RedirectResponse($this->urlGenerator->generate('admin.category.index'));
     }
 
     protected function getLoginUrl(Request $request): string

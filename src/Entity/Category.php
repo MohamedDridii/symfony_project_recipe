@@ -30,7 +30,7 @@ class Category
 
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
-
+    
     /**
      * @var Collection<int, Recipe>
      */

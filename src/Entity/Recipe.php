@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\RecipeRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 
 #[ORM\Entity(repositoryClass: RecipeRepository::class)]
 class Recipe
@@ -12,12 +13,15 @@ class Recipe
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
+    #[Groups(['recipes.index'])]
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['recipes.index'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['recipes.index'])]
     private ?string $slug = null;
 
     #[ORM\Column(type: Types::TEXT)]
@@ -30,6 +34,8 @@ class Recipe
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(nullable: true)]
+    #[Groups(['recipes.index'])]
+
     private ?int $duration = null;
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]

@@ -67,7 +67,7 @@ final class RecipeController extends AbstractController
     public function edit(Recipe $recipe,Request $request,EntityManagerInterface $em ): Response// le framework symfony connait que dans le route tu cherche sur l'id donc elle select l'entite avec l'id passer au parametre(cette methode n'est valable qu'avec le champ id)
     {
         $form=$this->createForm(RecipeType::class,$recipe);//j'ai cree un formulaire avec les donner de l'entite recipe passer en parametre dans la fonction
-        
+        //le formulaire est preremplit car j'ai charge dans l'url une entite existante dans la bd mais dans cree j'ai cree une nouvelle instance de la classe donc le formulaire est initialement vide 
         $form->handleRequest($request);//ca modifie automatiquement les valeurs ajouter au formulaie dans l'entite puisque chaque champ du formulaire et lie a une entite lors de la creation du formulaire on peut voir les detail dans RecipeType dans la methode configureOptions
         
         if ($form->isSubmitted() && $form->isValid()){

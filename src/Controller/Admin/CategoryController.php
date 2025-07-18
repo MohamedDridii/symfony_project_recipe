@@ -11,12 +11,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
+
 
 
 
 #[Route('/admin/category',name:'admin.category.')]
 final class CategoryController extends AbstractController
 {
+    #[IsGranted('ROLE_USER')]
     #[Route('', name: 'index')]
     public function index(CategoryRepository $categoryRepository): Response
     {
