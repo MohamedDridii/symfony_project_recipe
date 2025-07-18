@@ -17,13 +17,14 @@ class Recipe
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    #[Groups(['recipes.index'])]
+    #[Groups(['recipes.index','recipes.create'])]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
     #[Groups(['recipes.index'])]
     private ?string $slug = null;
 
+    #[Groups(['recipes.create'])]
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
@@ -34,8 +35,7 @@ class Recipe
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\Column(nullable: true)]
-    #[Groups(['recipes.index'])]
-
+    #[Groups(['recipes.index','recipes.create'])]
     private ?int $duration = null;
 
     #[ORM\ManyToOne(inversedBy: 'recipes')]
